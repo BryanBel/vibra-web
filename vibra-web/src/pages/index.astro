@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VIBRA — Siente la vibra de ser tú</title>
+<meta name="description" content="VIBRA — cadenas de mano hechas a mano en Caracas. Piezas con personalidad, actitud y autenticidad." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237A1E2C'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23F5EFE6' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Bree+Serif&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F5EFE6;
+    --surface:#FFFDF9;
+    --fg:#2A1418;
+    --muted:#7A5B5A;
+    --footer-muted:#A08582;
+    --border:#E7D8CE;
+    --accent:#7A1E2C;
+    --accent-dark:#5C1620;
+    --accent-2:#F4C6CF;
+    --font-display:'Cormorant Garamond', Georgia, serif;
+    --font-subtitle:'Bree Serif', Georgia, serif;
+    --font-body:'Work Sans', system-ui, sans-serif;
+    --radius-sm:12px;
+    --radius-md:18px;
+    --radius-lg:26px;
+    --shadow-card:0 18px 40px -20px rgba(42,20,24,.28);
+    --container:1240px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-wrap:pretty;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.05;margin:0;letter-spacing:-.01em;}
+  .eyebrow{
+    font-family:var(--font-subtitle);
+    font-size:clamp(12px,1.4vw,14px);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;align-items:center;gap:10px;
+    margin:0 0 14px;
+  }
+  .eyebrow::before{content:'';width:22px;height:2px;background:var(--accent);border-radius:2px;}
+  .container{max-width:var(--container);margin:0 auto;padding:0 24px;}
+  @media (min-width:600px){.container{padding:0 32px;}}
+  @media (min-width:1280px){.container{padding:0 40px;}}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--font-body);font-weight:600;font-size:15px;
+    padding:14px 26px;border-radius:999px;border:1.5px solid transparent;
+    cursor:pointer;transition:transform var(--t,.2s) cubic-bezier(.2,0,0,1), background .2s, color .2s, border-color .2s;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--accent);color:var(--surface);}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-ghost{background:transparent;color:var(--accent);border-color:var(--accent);}
+  .btn-ghost:hover{background:var(--accent);color:var(--surface);}
+  .btn-sm{padding:10px 18px;font-size:13.5px;}
+  .btn:focus-visible{outline:3px solid color-mix(in oklab, var(--accent), transparent 60%);outline-offset:2px;}
+  .cart-btn:focus-visible, .menu-toggle:focus-visible, .modal-close:focus-visible,
+  .qty-row button:focus-visible, .social-row a:focus-visible, .nav-links a:focus-visible{
+    outline:3px solid color-mix(in oklab, var(--accent), transparent 60%);outline-offset:2px;border-radius:6px;
+  }
+
+  /* ---------- doodle icons ---------- */
+  .doodle{stroke:var(--accent);stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ---------- header ---------- */
+  .site-header{position:sticky;top:0;z-index:40;background:rgba(245,239,230,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px;}
+  .logo{font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--accent);letter-spacing:.01em;}
+  .nav-links{display:none;gap:34px;font-size:15px;font-weight:500;}
+  .nav-links a{position:relative;padding:6px 0;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent);transition:width .2s;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-actions{display:flex;align-items:center;gap:14px;}
+  .cart-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;}
+  .cart-count{position:absolute;top:-6px;right:-6px;background:var(--accent);color:var(--surface);font-size:11px;font-weight:700;min-width:20px;height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+  .menu-toggle{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;}
+  .menu-toggle svg{stroke:var(--fg);stroke-width:2.4;}
+  @media (min-width:960px){
+    .nav-links{display:flex;}
+    .menu-toggle{display:none;}
+  }
+  .mobile-panel{display:none;flex-direction:column;gap:4px;padding:8px 24px 26px;border-top:1px solid var(--border);}
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{padding:12px 0;font-weight:500;border-bottom:1px solid var(--border);}
+  @media (min-width:960px){.mobile-panel{display:none !important;}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 40px;position:relative;overflow:hidden;}
+  .hero-grid{display:grid;gap:44px;align-items:center;}
+  @media (min-width:960px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:24px;}}
+  .hero h1{font-size:clamp(42px,7vw,84px);}
+  .hero h1 em{font-style:italic;color:var(--accent);}
+  .hero p.lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:46ch;margin:22px 0 30px;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px;}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:10px;}
+  .badge{font-family:var(--font-subtitle);font-size:12.5px;padding:8px 14px;border-radius:999px;background:var(--accent-2);color:var(--accent-dark);}
+  .badge.outline{background:transparent;border:1px solid var(--border);color:var(--muted);}
+
+  .hero-visual{position:relative;aspect-ratio:1/1.05;border-radius:var(--radius-lg);overflow:hidden;background:linear-gradient(155deg,var(--accent-2) 0%, var(--bg) 62%);box-shadow:var(--shadow-card);}
+  .hero-visual img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;}
+  .float-tag{position:absolute;background:var(--surface);border-radius:var(--radius-sm);padding:12px 16px;box-shadow:var(--shadow-card);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
+  .float-tag.tag-1{top:8%;left:2%;font-family:var(--font-subtitle);font-size:13px;transform:rotate(-4deg);}
+  .float-tag.tag-2{bottom:9%;right:1%;transform:rotate(3deg);}
+  .float-tag svg{width:18px;height:18px;}
+
+  /* ---------- section shell ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(32px,4.4vw,52px);}
+  .section-head p{color:var(--muted);margin-top:14px;font-size:16px;}
+
+  /* ---------- bento catalog ---------- */
+  .catalog{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .bento{display:grid;grid-template-columns:1fr;gap:20px;grid-auto-flow:dense;}
+  @media (min-width:680px){.bento{grid-template-columns:repeat(2,1fr);}}
+  @media (min-width:1080px){.bento{grid-template-columns:repeat(4,1fr);}}
+  .tile{position:relative;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s cubic-bezier(.2,0,0,1), box-shadow .25s;}
+  .tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-card);}
+  @media (min-width:1080px){
+    .tile-lg{grid-column:span 2;grid-row:span 2;}
+    .tile-wide{grid-column:span 2;}
+  }
+  .tile-lg{min-height:420px;}
+  .tile-tag{position:absolute;top:20px;right:20px;font-family:var(--font-subtitle);font-size:11.5px;background:var(--accent);color:var(--surface);padding:6px 12px;border-radius:999px;z-index:2;}
+  .tile-art{flex:1;display:flex;align-items:center;justify-content:center;margin:6px 0 18px;overflow:hidden;border-radius:var(--radius-sm);}
+  .tile-art img{width:100%;height:100%;object-fit:cover;}
+  .tile h3{font-size:22px;margin-bottom:6px;}
+  .tile-lg h3{font-size:30px;}
+  .tile .phrase{font-family:var(--font-subtitle);font-size:14px;color:var(--accent-dark);margin:0 0 4px;}
+  .tile .material{color:var(--muted);font-size:13.5px;margin:0 0 18px;}
+  .tile-actions{display:flex;gap:10px;margin-top:auto;flex-wrap:wrap;}
+
+  .tile-apparel{background:linear-gradient(120deg,var(--accent-2),var(--bg));display:flex;flex-direction:row;align-items:center;gap:24px;min-height:200px;}
+  .tile-apparel .doodle-mark{width:74px;height:74px;flex:none;}
+  .tile-apparel h3{font-size:24px;}
+  .tile-apparel p{color:var(--accent-dark);font-size:14px;margin:6px 0 16px;max-width:34ch;}
+
+  .tile-follow{background:var(--accent);color:var(--surface);justify-content:center;align-items:center;text-align:center;gap:10px;min-height:200px;}
+  .tile-follow svg{stroke:var(--accent-2);}
+  .tile-follow h3{color:var(--surface);font-size:22px;}
+  .tile-follow p{color:var(--accent-2);font-size:14px;margin:2px 0 14px;}
+
+  /* ---------- manifesto ---------- */
+  .manifesto-grid{display:grid;gap:56px;}
+  @media (min-width:960px){.manifesto-grid{grid-template-columns:1fr 1fr;align-items:start;}}
+  .values{display:grid;grid-template-columns:1fr;gap:22px;margin-top:8px;}
+  @media (min-width:520px){.values{grid-template-columns:1fr 1fr;}}
+  .value-item{display:flex;gap:14px;}
+  .value-item svg{width:34px;height:34px;flex:none;margin-top:2px;}
+  .value-item h3{font-family:var(--font-body);font-weight:700;font-size:16px;line-height:1.3;letter-spacing:normal;margin:0 0 4px;}
+  .value-item p{margin:0;color:var(--muted);font-size:14.5px;}
+
+  .scrapbook{position:relative;padding:12px;}
+  .polaroid{background:var(--surface);border-radius:6px;box-shadow:var(--shadow-card);padding:14px 14px 46px;position:relative;}
+  .polaroid .polaroid-photo{aspect-ratio:4/3;border-radius:3px;overflow:hidden;background:linear-gradient(150deg,var(--accent-2),var(--bg) 70%);display:flex;align-items:center;justify-content:center;}
+  .polaroid figcaption{font-family:var(--font-subtitle);font-size:14px;color:var(--accent-dark);text-align:center;margin-top:14px;}
+  .tape{position:absolute;width:70px;height:26px;background:#F0E7C8;opacity:.85;box-shadow:0 2px 4px rgba(0,0,0,.15);}
+  .polaroid .tape{top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg);}
+  .polaroid.rot-l{transform:rotate(-3deg);}
+  .polaroid.rot-r{transform:rotate(2.5deg);margin-top:-30px;margin-left:18%;}
+  @media (max-width:519px){.polaroid.rot-r{margin-top:22px;margin-left:0;}}
+  .founder-note{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:26px;margin-top:28px;font-size:14.5px;color:var(--muted);}
+  .founder-note strong{color:var(--fg);}
+  .script-quote{font-family:var(--font-display);font-style:italic;font-weight:600;font-size:clamp(26px,3.4vw,36px);color:var(--accent);margin:32px 0 0;}
+
+  /* ---------- cta band ---------- */
+  .cta-band{background:var(--accent);color:var(--surface);text-align:center;padding:70px 0;}
+  .cta-band h2{color:var(--surface);font-size:clamp(28px,4vw,42px);margin-bottom:10px;}
+  .cta-band p{color:var(--accent-2);margin:0 0 26px;font-size:15.5px;}
+  .cta-band .btn-primary{background:var(--surface);color:var(--accent);}
+  .cta-band .btn-primary:hover{background:var(--accent-2);}
+
+  /* ---------- footer ---------- */
+  footer{background:#241014;color:#EFE2D8;padding:72px 0 28px;}
+  .footer-grid{display:grid;gap:44px;}
+  @media (min-width:760px){.footer-grid{grid-template-columns:1.2fr .8fr 1fr;}}
+  footer .logo{color:var(--accent-2);}
+  footer .f-tag{font-family:var(--font-subtitle);font-size:13.5px;color:#C9A9A6;margin:14px 0 20px;max-width:32ch;}
+  .f-offices{font-size:13.5px;color:#C9A9A6;line-height:1.7;}
+  .f-heading{font-weight:700;font-size:14px;letter-spacing:.065em;text-transform:uppercase;color:#EFE2D8;margin-bottom:16px;}
+  .f-links{display:flex;flex-direction:column;gap:10px;font-size:14.5px;color:#D8C3BC;}
+  .f-links a:hover{color:var(--accent-2);}
+  .social-row{display:flex;gap:12px;margin-top:18px;}
+  .social-row a{width:42px;height:42px;border:1px solid #4A2B2F;border-radius:999px;display:flex;align-items:center;justify-content:center;transition:border-color .2s, background .2s;}
+  .social-row a:hover{border-color:var(--accent-2);background:#33191E;}
+  .social-row svg{stroke:#EFE2D8;width:19px;height:19px;}
+  .newsletter-form{display:flex;flex-direction:column;gap:12px;margin-top:6px;}
+  .nf-row{display:flex;gap:8px;}
+  .nf-row input{flex:1;min-width:0;padding:13px 16px;border-radius:999px;border:1px solid #4A2B2F;background:#2E1519;color:#EFE2D8;font-family:var(--font-body);font-size:14px;}
+  .nf-row input::placeholder{color:var(--footer-muted);}
+  .nf-row input:focus-visible{outline:2px solid var(--accent-2);}
+  .nf-row button{flex:none;}
+  .nf-msg{font-size:13px;min-height:18px;color:var(--accent-2);}
+  .nf-msg.error{color:#E38F8F;}
+  .foot-bottom{border-top:1px solid #3A2024;margin-top:52px;padding-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between;font-size:12.5px;color:var(--footer-muted);}
+
+  /* ---------- quick view modal ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(36,16,20,.5);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;padding:20px;z-index:80;}
+  .overlay.open{display:flex;}
+  .modal{background:var(--surface);border-radius:var(--radius-lg);max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:34px;position:relative;}
+  .modal-close{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:999px;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .modal-body{display:grid;gap:26px;}
+  @media (min-width:520px){.modal-body{grid-template-columns:1fr 1fr;}}
+  .modal-art{background:linear-gradient(155deg,var(--accent-2),var(--bg));border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;padding:26px;}
+  .modal-art svg{width:70%;}
+  .modal-info h3{font-size:26px;margin-bottom:6px;}
+  .modal-info .phrase{font-family:var(--font-subtitle);color:var(--accent-dark);margin-bottom:14px;}
+  .modal-info p.desc{color:var(--muted);font-size:14.5px;margin-bottom:18px;}
+  .qty-row{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .qty-row button{width:34px;height:34px;border-radius:999px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:16px;}
+  .qty-row span{min-width:20px;text-align:center;font-weight:600;}
+  .modal-actions{display:flex;flex-direction:column;gap:10px;}
+
+  /* ---------- cart drawer ---------- */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(36,16,20,.45);display:none;z-index:80;}
+  .drawer-overlay.open{display:block;}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:var(--surface);z-index:90;transform:translateX(105%);transition:transform .3s cubic-bezier(.2,0,0,1);display:flex;flex-direction:column;padding:26px;}
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .drawer-head h3{font-size:22px;}
+  #cartItems{flex:1;overflow:auto;display:flex;flex-direction:column;gap:14px;}
+  .cart-line{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;font-size:14px;}
+  .cart-line .cl-name{font-weight:600;}
+  .cart-line .cl-meta{color:var(--muted);font-size:12.5px;}
+  .cart-empty{color:var(--muted);font-size:14px;padding:30px 0;text-align:center;}
+  .drawer-foot{border-top:1px solid var(--border);padding-top:18px;margin-top:14px;font-size:13.5px;color:var(--muted);}
+
+  /* ---------- toast ---------- */
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:14px 22px;border-radius:999px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:100;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important;}}
+</style>
+</head>
+<body>
+
+<header class="site-header" data-od-id="site-header">
+  <div class="container nav-inner">
+    <a href="#inicio" class="logo" data-od-id="logo">VIBRA</a>
+    <nav class="nav-links" data-od-id="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#esencia">Nuestra Esencia</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cartBtn" data-od-id="cart-button" aria-label="Ver carrito">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 4 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#catalogo" class="btn btn-primary" data-od-id="nav-cta">Ver Colección</a>
+      <button class="menu-toggle" id="menuToggle" data-od-id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel" data-od-id="mobile-panel">
+    <a href="#inicio">Inicio</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#esencia">Nuestra Esencia</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="inicio" data-od-id="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Cadenas de mano · piezas para combinar</p>
+        <h1>Siente la<br><em>vibra</em> de ser tú.</h1>
+        <p class="lead">Cadenas de mano con dijes de mariposa, corazón y flor — combínalas distinto en cada mano, según tu actitud del día.</p>
+        <div class="hero-ctas">
+          <a href="#catalogo" class="btn btn-primary" data-od-id="hero-cta-primary">Ver Colección</a>
+          <a href="#esencia" class="btn btn-ghost" data-od-id="hero-cta-secondary">Nuestra Esencia</a>
+        </div>
+        <div class="hero-badges">
+          <span class="badge">Autenticidad</span>
+          <span class="badge">Hecho a mano</span>
+          <span class="badge outline">Caracas, Venezuela</span>
+        </div>
+      </div>
+      <div class="hero-visual" data-od-id="hero-visual">
+        <img src="/hero-flor-dorada-phone.jpg" alt="Cadena de mano Flor Dorada, foto real de una clienta de VIBRA" />
+        <div class="float-tag tag-1">
+          <svg class="doodle" viewBox="0 0 64 64" width="18" height="18"><path d="M32 12c-14 8-18 20-18 26 0 10 8 16 18 16s18-6 18-16c0-6-4-18-18-26z"/></svg>
+          Edición limitada
+        </div>
+        <div class="float-tag tag-2">
+          <svg class="doodle" viewBox="0 0 64 64" width="18" height="18"><path d="M12 34c6-14 16-20 20-20s14 6 20 20c-6 14-16 18-20 18s-14-4-20-18z"/></svg>
+          Hecho por encargo
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG -->
+  <section class="catalog" id="catalogo" data-od-id="catalog">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">El catálogo</p>
+        <h2>Una cadena, mil formas de ser tú.</h2>
+        <p>Cadenas de mano armadas y combinadas a mano, en pequeños lotes. Elige tu dije y consulta disponibilidad por WhatsApp — respondemos el mismo día.</p>
+      </div>
+
+      <div class="bento" id="bentoGrid">
+        <!-- large featured -->
+        <article class="tile tile-lg" data-od-id="product-mariposa" data-product="mariposa">
+          <span class="tile-tag">Más vendido</span>
+          <div class="tile-art">
+            <img src="/mariposa-hand-detail.jpg" alt="Cadena de mano Mariposa, dorada, foto real de una clienta" />
+          </div>
+          <p class="phrase">Dije de mariposa</p>
+          <h3>Cadena de Mano Mariposa</h3>
+          <p class="material">Acero dorado o plateado · ajustable · anillo + pulsera en una pieza</p>
+          <div class="tile-actions">
+            <button class="btn btn-primary btn-sm" data-od-id="btn-details-mariposa" data-open-quickview="mariposa">Ver Detalles</button>
+            <button class="btn btn-ghost btn-sm" data-od-id="btn-add-mariposa" data-add-cart="mariposa">Agregar</button>
+          </div>
+        </article>
+
+        <article class="tile" data-od-id="product-corazon" data-product="corazon">
+          <span class="tile-tag">Favorito</span>
+          <div class="tile-art">
+            <img src="/corazon-lifestyle-pool.jpg" alt="Cadena de mano Corazón, foto real de una clienta" />
+          </div>
+          <p class="phrase">Dije de corazón</p>
+          <h3>Cadena de Mano Corazón</h3>
+          <p class="material">Acero plateado · ajustable</p>
+          <div class="tile-actions">
+            <button class="btn btn-primary btn-sm" data-open-quickview="corazon">Ver Detalles</button>
+            <button class="btn btn-ghost btn-sm" data-add-cart="corazon">Agregar</button>
+          </div>
+        </article>
+
+        <article class="tile" data-od-id="product-flor-dorada" data-product="flor-dorada">
+          <span class="tile-tag">Premium</span>
+          <div class="tile-art">
+            <img src="/flor-dorada-phone-outdoor.jpg" alt="Cadena de mano Flor Dorada, foto real de una clienta" />
+          </div>
+          <p class="phrase">Dije de flor · esmalte</p>
+          <h3>Cadena de Mano Flor Dorada</h3>
+          <p class="material">Acero dorado · dije esmaltado con perla</p>
+          <div class="tile-actions">
+            <button class="btn btn-primary btn-sm" data-open-quickview="flor-dorada">Ver Detalles</button>
+            <button class="btn btn-ghost btn-sm" data-add-cart="flor-dorada">Agregar</button>
+          </div>
+        </article>
+
+        <article class="tile tile-wide tile-apparel" data-od-id="mix-teaser">
+          <svg class="doodle-mark" viewBox="0 0 64 64" fill="none" stroke="#7A1E2C" stroke-width="4" stroke-linecap="round"><circle cx="32" cy="20" r="8"/><circle cx="32" cy="40" r="8"/><circle cx="18" cy="30" r="8"/><circle cx="46" cy="30" r="8"/></svg>
+          <div>
+            <h3>Combina tus dijes</h3>
+            <p>Así las usamos nosotras: un dije distinto en cada mano. Mezcla mariposa, corazón y flor a tu gusto — cada combinación es tuya.</p>
+            <button class="btn btn-ghost btn-sm" data-od-id="btn-mix-teaser" data-open-quickview="mariposa">Ver Colección</button>
+          </div>
+        </article>
+
+        <article class="tile" data-od-id="product-flor-plata" data-product="flor-plata">
+          <span class="tile-tag">Sencillo</span>
+          <div class="tile-art">
+            <img src="/flor-plata-detail-jeans.jpg" alt="Cadena de mano Flor Plata, foto real de una clienta" />
+          </div>
+          <p class="phrase">Dije de flor · liso</p>
+          <h3>Cadena de Mano Flor Plata</h3>
+          <p class="material">Acero plateado · dije esmaltado negro</p>
+          <div class="tile-actions">
+            <button class="btn btn-primary btn-sm" data-open-quickview="flor-plata">Ver Detalles</button>
+            <button class="btn btn-ghost btn-sm" data-add-cart="flor-plata">Agregar</button>
+          </div>
+        </article>
+
+        <article class="tile tile-follow" data-od-id="social-follow-tile">
+          <svg viewBox="0 0 64 64" width="30" height="30" fill="none" stroke-width="5" stroke-linecap="round"><path d="M32 12c-14 8-18 20-18 26 0 10 8 16 18 16s18-6 18-16c0-6-4-18-18-26z"/></svg>
+          <h3>@vibracompany</h3>
+          <p>Nuevas piezas, historias del taller y drops en Instagram &amp; TikTok.</p>
+          <a href="https://instagram.com/vibracompany" target="_blank" rel="noopener" class="btn btn-sm" style="background:var(--surface);color:var(--accent);">Seguir</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto" id="esencia" data-od-id="manifesto">
+    <div class="container manifesto-grid">
+      <div>
+        <p class="eyebrow">Nuestra esencia</p>
+        <h2>Moda con actitud, humor y raíz latina.</h2>
+        <p style="color:var(--muted);margin-top:16px;max-width:52ch;">Creamos un estilo de vida que acompaña el día a día: piezas con personalidad que transmiten confianza y autenticidad, inspiradas en la cultura y el estilo de vida latino.</p>
+
+        <div class="values">
+          <div class="value-item">
+            <svg class="doodle" viewBox="0 0 64 64"><path d="M32 12c-14 8-18 20-18 26 0 10 8 16 18 16s18-6 18-16c0-6-4-18-18-26z"/></svg>
+            <div><h3>Autenticidad</h3><p>Libertad de ser uno mismo y expresarte sin miedo.</p></div>
+          </div>
+          <div class="value-item">
+            <svg class="doodle" viewBox="0 0 64 64"><circle cx="32" cy="32" r="18"/><path d="M24 32l6 6 12-12"/></svg>
+            <div><h3>Confianza</h3><p>Que te sientas segura, cómoda y representada.</p></div>
+          </div>
+          <div class="value-item">
+            <svg class="doodle" viewBox="0 0 64 64"><path d="M14 44V22c0-4 4-8 8-8h20c4 0 8 4 8 8v22"/><path d="M14 44h36"/></svg>
+            <div><h3>Responsabilidad</h3><p>Calidad, cuidado y atención al detalle en cada pieza.</p></div>
+          </div>
+          <div class="value-item">
+            <svg class="doodle" viewBox="0 0 64 64"><path d="M12 34c6-14 16-20 20-20s14 6 20 20c-6 14-16 18-20 18s-14-4-20-18z"/></svg>
+            <div><h3>Amor</h3><p>Dedicación y cariño, pieza por pieza.</p></div>
+          </div>
+          <div class="value-item" style="grid-column:1/-1;">
+            <svg class="doodle" viewBox="0 0 64 64"><path d="M10 32c8-14 18-20 22-20s14 6 22 20"/><path d="M18 32c4-8 10-12 14-12s10 4 14 12"/></svg>
+            <div><h3>Creatividad</h3><p>Diseñamos con humor y diversión, para destacar entre lo común.</p></div>
+          </div>
+        </div>
+
+        <p class="script-quote">"Vibra y Vive."</p>
+      </div>
+
+      <div class="scrapbook">
+        <figure class="polaroid rot-l">
+          <span class="tape"></span>
+          <div class="polaroid-photo">
+            <img src="/scrapbook-flor-dual-hands.jpg" alt="Dos clientas mostrando cadenas de mano Flor, dorada y plateada" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <figcaption>Dorada y plateada, lado a lado</figcaption>
+        </figure>
+        <figure class="polaroid rot-r">
+          <span class="tape"></span>
+          <div class="polaroid-photo">
+            <img src="/corazon-detail-sunglasses.jpg" alt="Detalle de cadena de mano Corazón" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;" />
+          </div>
+          <figcaption>Un dije, mil formas de llevarlo</figcaption>
+        </figure>
+
+        <div class="founder-note">
+          <strong>Gillary Mass</strong>, fundadora — cada cadena de mano se arma y combina a mano, dije por dije, en pequeños lotes. No fabricamos en masa: cuidamos cada detalle para que la pieza se sienta tan tuya como se ve.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band" data-od-id="cta-band">
+    <div class="container">
+      <h2>¿Lista para sentir tu vibra?</h2>
+      <p>Nuevos lotes cada pocas semanas — las piezas se agotan rápido.</p>
+      <a href="#catalogo" class="btn btn-primary" data-od-id="cta-band-button">Explorar el Catálogo</a>
+    </div>
+  </section>
+</main>
+
+<footer id="contacto" data-od-id="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="#inicio" class="logo">VIBRA</a>
+      <p class="f-tag">"Siente la vibra de ser tú." Cadenas de mano armadas a mano, con personalidad, actitud y autenticidad.</p>
+      <p class="f-offices">Somos tienda virtual · Caracas &amp; San Antonio de los Altos<br><a href="https://wa.me/584125589119" target="_blank" rel="noopener" style="color:var(--accent-2);">WhatsApp +58 412-5589119</a></p>
+      <div class="social-row">
+        <a href="https://instagram.com/vibracompany" target="_blank" rel="noopener" aria-label="Instagram" data-od-id="social-instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@vibracompany" target="_blank" rel="noopener" aria-label="TikTok" data-od-id="social-tiktok">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M15 3c.6 2.4 2 4 5 4v3c-2 0-3.6-.6-5-1.6V15a5 5 0 1 1-5-5v3a2 2 0 1 0 2 2V3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <p class="f-heading">Explorar</p>
+      <div class="f-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#esencia">Nuestra Esencia</a>
+        <a href="https://wa.me/584125589119" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://instagram.com/vibracompany" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="f-heading">Únete a la comunidad</p>
+      <p style="font-size:13.5px;color:#C9A9A6;margin:0 0 16px;">Sé de las primeras en conocer nuevas colecciones, drops limitados y detrás de cámaras del taller.</p>
+      <form class="newsletter-form" id="newsletterForm" data-od-id="newsletter-form">
+        <div class="nf-row">
+          <input type="email" id="newsletterEmail" placeholder="tu@correo.com" required aria-label="Correo electrónico" aria-describedby="newsletterMsg" />
+          <button type="submit" class="btn btn-primary btn-sm" style="background:var(--accent-2);color:var(--accent-dark);">Unirme</button>
+        </div>
+        <p class="nf-msg" id="newsletterMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="container foot-bottom">
+    <span>© 2026 VIBRA. Todos los derechos reservados.</span>
+    <span>Diseñado y confeccionado a mano en Caracas, Venezuela.</span>
+  </div>
+</footer>
+
+<!-- QUICK VIEW MODAL -->
+<div class="overlay" id="qvOverlay" data-od-id="quickview-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="qvName" tabindex="-1">
+    <button class="modal-close" id="qvClose" aria-label="Cerrar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-body">
+      <div class="modal-art" id="qvArt"></div>
+      <div class="modal-info">
+        <h3 id="qvName">—</h3>
+        <p class="phrase" id="qvPhrase">—</p>
+        <p class="desc" id="qvDesc">—</p>
+        <div class="qty-row">
+          <button type="button" id="qvMinus" aria-label="Reducir cantidad">−</button>
+          <span id="qvQty">1</span>
+          <button type="button" id="qvPlus" aria-label="Aumentar cantidad">+</button>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="qvAdd" data-od-id="qv-add-to-cart">Agregar al carrito</button>
+          <a class="btn btn-ghost" id="qvWhatsapp" href="https://wa.me/584125589119" target="_blank" rel="noopener" data-od-id="qv-whatsapp">Consultar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="cartDrawer" data-od-id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle" tabindex="-1">
+  <div class="drawer-head">
+    <h3 id="cartDrawerTitle">Tu carrito</h3>
+    <button class="modal-close" id="drawerClose" aria-label="Cerrar carrito">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div id="cartItems"><p class="cart-empty">Tu carrito está vacío — todavía.</p></div>
+  <div class="drawer-foot">
+    Sin pagos en línea por ahora — al confirmar te escribimos por WhatsApp para cerrar tu pedido y coordinar entrega.
+    <a href="https://wa.me/584125589119" id="drawerWhatsappBtn" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;margin-top:14px;">Consultar por WhatsApp</a>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var PRODUCTS = {
+    'mariposa':    { name:'Cadena de Mano Mariposa', phrase:'Dije de mariposa', material:'Acero dorado o plateado · ajustable', charm:'butterfly', color:'#7A1E2C' },
+    'corazon':     { name:'Cadena de Mano Corazón', phrase:'Dije de corazón', material:'Acero plateado · ajustable', charm:'heart', color:'#7A1E2C' },
+    'flor-dorada': { name:'Cadena de Mano Flor Dorada', phrase:'Dije de flor · esmalte con perla', material:'Acero dorado · dije esmaltado', charm:'flower', color:'#9E7A28' },
+    'flor-plata':  { name:'Cadena de Mano Flor Plata', phrase:'Dije de flor · liso', material:'Acero plateado · dije esmaltado negro', charm:'flower', color:'#7A1E2C' }
+  };
+  var CHARM_SVG = {
+    butterfly:'<path d="M80 58C68 44 46 40 40 54C34 68 56 78 80 58Z"/><path d="M80 58C92 44 114 40 120 54C126 68 104 78 80 58Z"/><path d="M80 46C74 52 74 68 80 80C86 68 86 52 80 46Z"/>',
+    heart:'<path d="M48 66c8-16 24-24 32-24s24 8 32 24c-8 24-24 30-32 30s-24-6-32-30z"/>',
+    flower:'<circle cx="80" cy="42" r="14"/><circle cx="80" cy="78" r="14"/><circle cx="62" cy="60" r="14"/><circle cx="98" cy="60" r="14"/><circle cx="80" cy="60" r="6" fill="currentColor" stroke="none"/>'
+  };
+
+  var menuToggle = document.getElementById('menuToggle');
+  var mobilePanel = document.getElementById('mobilePanel');
+  menuToggle.addEventListener('click', function(){
+    var open = mobilePanel.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open);
+  });
+  mobilePanel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ mobilePanel.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); });
+  });
+
+  var toastEl = document.getElementById('toast');
+  var toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2400);
+  }
+
+  var lastFocused = null;
+  function focusablesIn(container){
+    return Array.prototype.slice.call(container.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ));
+  }
+  function openDialog(container, focusTarget){
+    lastFocused = document.activeElement;
+    (focusTarget || focusablesIn(container)[0] || container).focus();
+  }
+  function closeDialog(){
+    if(lastFocused){ lastFocused.focus(); lastFocused = null; }
+  }
+  function trapTab(container, e){
+    if(e.key !== 'Tab') return;
+    var focusables = focusablesIn(container);
+    if(!focusables.length) return;
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+
+  var CART_KEY = 'vibra_cart_v1';
+  var cart = [];
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e){ cart = []; }
+
+  var cartCountEl = document.getElementById('cartCount');
+  var cartItemsEl = document.getElementById('cartItems');
+  var drawerWhatsappBtn = document.getElementById('drawerWhatsappBtn');
+
+  function saveCart(){
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    renderCart();
+  }
+  function renderCart(){
+    var total = cart.reduce(function(n,i){ return n + i.qty; }, 0);
+    cartCountEl.textContent = total;
+    if(!cart.length){
+      cartItemsEl.innerHTML = '<p class="cart-empty">Tu carrito está vacío — todavía.</p>';
+      drawerWhatsappBtn.href = 'https://wa.me/584125589119';
+      return;
+    }
+    cartItemsEl.innerHTML = cart.map(function(item){
+      var p = PRODUCTS[item.id];
+      return '<div class="cart-line"><div><div class="cl-name">'+p.name+'</div><div class="cl-meta">Cantidad: '+item.qty+'</div></div></div>';
+    }).join('');
+    var summary = cart.map(function(item){
+      var p = PRODUCTS[item.id];
+      return item.qty + 'x ' + p.name;
+    }).join(', ');
+    drawerWhatsappBtn.href = 'https://wa.me/584125589119?text=' + encodeURIComponent('Hola! Quiero consultar disponibilidad de: ' + summary);
+  }
+  function addToCart(id, qty){
+    qty = qty || 1;
+    var existing = cart.find(function(i){ return i.id === id; });
+    if(existing){ existing.qty += qty; } else { cart.push({ id:id, qty:qty }); }
+    saveCart();
+    toast(PRODUCTS[id].name + ' agregado al carrito');
+  }
+  renderCart();
+
+  document.querySelectorAll('[data-add-cart]').forEach(function(btn){
+    btn.addEventListener('click', function(){ addToCart(btn.getAttribute('data-add-cart'), 1); });
+  });
+
+  var cartBtn = document.getElementById('cartBtn');
+  var cartDrawer = document.getElementById('cartDrawer');
+  var drawerOverlay = document.getElementById('drawerOverlay');
+  function openDrawer(){ cartDrawer.classList.add('open'); drawerOverlay.classList.add('open'); openDialog(cartDrawer); }
+  function closeDrawer(){
+    if(!cartDrawer.classList.contains('open')) return;
+    cartDrawer.classList.remove('open'); drawerOverlay.classList.remove('open'); closeDialog();
+  }
+  cartBtn.addEventListener('click', openDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+
+  var qvOverlay = document.getElementById('qvOverlay');
+  var qvArt = document.getElementById('qvArt');
+  var qvName = document.getElementById('qvName');
+  var qvPhrase = document.getElementById('qvPhrase');
+  var qvDesc = document.getElementById('qvDesc');
+  var qvQty = document.getElementById('qvQty');
+  var qvAdd = document.getElementById('qvAdd');
+  var qvQtyVal = 1;
+  var qvCurrentId = null;
+  var qvWhatsapp = document.getElementById('qvWhatsapp');
+
+  function openQuickview(id){
+    var p = PRODUCTS[id];
+    qvCurrentId = id;
+    qvQtyVal = 1;
+    qvQty.textContent = qvQtyVal;
+    qvName.textContent = p.name;
+    qvPhrase.textContent = p.phrase;
+    qvDesc.textContent = p.material + '. Armado a mano en pequeños lotes — el tono puede variar levemente entre piezas.';
+    qvWhatsapp.href = 'https://wa.me/584125589119?text=' + encodeURIComponent('Hola! Me interesa la ' + p.name + ', ¿está disponible?');
+    qvArt.innerHTML = '<svg viewBox="0 0 160 170" width="60%" fill="none" stroke="'+p.color+'" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" style="color:'+p.color+'">'+CHARM_SVG[p.charm]+'<path d="M80 88v40" stroke-dasharray="1 8"/><circle cx="80" cy="132" r="3" fill="'+p.color+'"/><path d="M56 140a24 10 0 0 0 48 0"/></svg>';
+    qvOverlay.classList.add('open');
+    openDialog(qvOverlay.querySelector('.modal'), qvClose);
+  }
+  function closeQuickview(){
+    if(!qvOverlay.classList.contains('open')) return;
+    qvOverlay.classList.remove('open');
+    closeDialog();
+  }
+  document.querySelectorAll('[data-open-quickview]').forEach(function(btn){
+    btn.addEventListener('click', function(){ openQuickview(btn.getAttribute('data-open-quickview')); });
+  });
+  var qvClose = document.getElementById('qvClose');
+  qvClose.addEventListener('click', closeQuickview);
+  qvOverlay.addEventListener('click', function(e){ if(e.target === qvOverlay){ closeQuickview(); } });
+  document.getElementById('qvMinus').addEventListener('click', function(){ qvQtyVal = Math.max(1, qvQtyVal-1); qvQty.textContent = qvQtyVal; });
+  document.getElementById('qvPlus').addEventListener('click', function(){ qvQtyVal = Math.min(9, qvQtyVal+1); qvQty.textContent = qvQtyVal; });
+  qvAdd.addEventListener('click', function(){
+    addToCart(qvCurrentId, qvQtyVal);
+    qvOverlay.classList.remove('open');
+    openDrawer();
+  });
+
+  var nf = document.getElementById('newsletterForm');
+  var nfMsg = document.getElementById('newsletterMsg');
+  nf.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('newsletterEmail').value.trim();
+    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!valid){
+      nfMsg.textContent = 'Ingresa un correo válido.';
+      nfMsg.classList.add('error');
+      return;
+    }
+    nfMsg.classList.remove('error');
+    nfMsg.textContent = '¡Gracias por unirte a la comunidad VIBRA!';
+    nf.reset();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(qvOverlay.classList.contains('open')) closeQuickview();
+      if(cartDrawer.classList.contains('open')) closeDrawer();
+      return;
+    }
+    if(e.key === 'Tab'){
+      if(qvOverlay.classList.contains('open')) trapTab(qvOverlay.querySelector('.modal'), e);
+      else if(cartDrawer.classList.contains('open')) trapTab(cartDrawer, e);
+    }
+  });
+})();
+</script>
+</body>
+</html>

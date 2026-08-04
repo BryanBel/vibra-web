@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@import "@fontsource/cormorant-garamond/400.css";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/cormorant-garamond/700.css";
+@import "@fontsource/bree-serif/400.css";
+
+@theme {
+  /* Vibra Brand Colors (client-assets/vibra.pdf) */
+  --color-vibra-bordo: #7a1e2c;   /* Primary — bg, logo, headers */
+  --color-vibra-pink: #f4c6cf;    /* Secondary — accents, logo highlight */
+  --color-vibra-cream: #f5efe6;   /* Body text on bordo, light bg */
+
+  /* Custom Typography */
+  --font-vibra-heading: 'Cormorant Garamond', serif;   /* Logo, titles */
+  --font-vibra-body: 'Bree Serif', serif;               /* Tagline, body */
+}
