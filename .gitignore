@@ -4,7 +4,7 @@ node_modules/
 # variables de entorno — nunca subir credenciales
 .env
 .env.*
-!.env.example
+# los .env.example tampoco se versionan
 
 # salidas de compilación
 dist/
