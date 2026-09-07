@@ -1,0 +1,29 @@
+# dependencias
+node_modules/
+
+# variables de entorno — nunca subir credenciales
+.env
+.env.*
+!.env.example
+
+# salidas de compilación
+dist/
+build/
+.astro/
+.netlify/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# sistema operativo y editores
+.DS_Store
+Thumbs.db
+.idea/
+
+# carpeta vacía que quedó al reestructurar a monorepo
+vibra-web/
+
+# caché de turborepo
+.turbo/

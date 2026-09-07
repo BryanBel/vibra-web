@@ -1,0 +1,21 @@
+{
+  "name": "vibra-company",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.3.4",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck",
+    "db:generate": "pnpm --filter @vibra/db generate",
+    "db:migrate": "pnpm --filter @vibra/db migrate",
+    "db:seed": "pnpm --filter @vibra/db seed",
+    "db:studio": "pnpm --filter @vibra/db studio"
+  },
+  "devDependencies": {
+    "turbo": "^2.10.12"
+  }
+}
