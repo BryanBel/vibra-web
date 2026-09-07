@@ -1,0 +1,33 @@
+{
+  "name": "@vibra/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch --preserveWatchOutput",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.5.4",
+    "@orpc/contract": "^1.15.0",
+    "@orpc/server": "^1.15.0",
+    "@orpc/zod": "^1.15.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "@vibra/config": "workspace:*"
+  },
+  "type": "module",
+  "description": "Contrato de la API: enums del dominio, esquemas Zod y definición oRPC"
+}
