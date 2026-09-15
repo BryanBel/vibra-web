@@ -1,0 +1,9 @@
+# Material de marca entregado por la cliente (PDF de identidad, fotos y videos
+# originales). Se conserva en local como contexto, pero no se versiona: son ~54 MB
+# que no hacen falta para construir el sitio. Las fotos que sí usa la página viven
+# ya optimizadas en vibra-web/public/.
+#
+# Brand material supplied by the client (identity PDF, raw photos and videos).
+# Kept locally as context but deliberately untracked: ~54 MB the build does not
+# need. The photos the site actually uses live, already optimized, in vibra-web/public/.
+client-assets/
