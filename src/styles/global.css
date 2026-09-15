@@ -6,7 +6,9 @@
 @import "@fontsource/bree-serif/400.css";
 
 @theme {
-  /* Vibra Brand Colors (client-assets/vibra.pdf) */
+  /* Vibra Brand Colors. Taken from the identity PDF the client supplied; that file is
+     brand material rather than source, so it is kept outside the repository and these
+     values are the record of it. */
   --color-vibra-bordo: #7a1e2c;   /* Primary — bg, logo, headers */
   --color-vibra-pink: #f4c6cf;    /* Secondary — accents, logo highlight */
   --color-vibra-cream: #f5efe6;   /* Body text on bordo, light bg */
